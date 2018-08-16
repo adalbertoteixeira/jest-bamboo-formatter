@@ -20,6 +20,10 @@ module.exports = function reporter(results) {
   output.stats.end = new Date();
 
   results.testResults.forEach(function suiteIterator(suiteResult) {
+    if (suiteResult.testExecError) {
+      throw new Error(suiteResult.testExecError.message);
+    }
+
     suiteResult.testResults.forEach(function testIterator(testResult) {
       /* istanbul ignore else */
       if (testResult.status === 'passed') {
